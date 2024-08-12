@@ -13,34 +13,44 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User { 
-  id             String   @id @default(uuid())
-  email          String   @unique
-  name           String
-  password_hash  String  
-  created_at     DateTime @default(now())
+model User {
+  id            String   @id @default(uuid())
+  email         String   @unique
+  name          String
+  password_hash String
+  created_at    DateTime @default(now())
+
+  checkIns CheckIn[] // should be camel case because its gonna be accessed in js code
 
   @@map("users") // This is the table name in the database
 }
 
 model CheckIn {
-  id           String   @id @default(uuid())
-  created_at   DateTime @default(now())
+  id           String    @id @default(uuid())
+  created_at   DateTime  @default(now())
   validated_at DateTime?
+
+  user    User   @relation(fields: [user_id], references: [id])
+  user_id String
+
+  gym    Gym    @relation(fields: [gym_id], references: [id])
+  gym_id String
 
   @@map("check_ins") // This is the table name in the database
 }
 
 model Gym {
-  id          String   @id @default(uuid())
+  id          String  @id @default(uuid())
   name        String
-  description String? 
+  description String?
   address     String
   city        String
   state       String
   zip         String
   latitude    Decimal
   longitude   Decimal
+
+  checkIns CheckIn[]
 
   @@map("gyms") // This is the table name in the database
 }

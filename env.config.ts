@@ -7,6 +7,7 @@ const config = {
     .required()
     .default('development')
     .asEnum(['development', 'production', 'test']),
+  database: env.get('DATABASE_URL').required().asString()
 };
 
 export default config;
