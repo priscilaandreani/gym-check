@@ -3,7 +3,7 @@ import { app } from './app';
 app.listen(
   {
     port: process.env.PORT,
-    host: '0.0.0.0',
+    host: '0.0.0.0'
   },
   (err, address) => {
     if (err) {
