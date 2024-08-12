@@ -16,7 +16,7 @@ app.setErrorHandler((error, req, reply) => {
   if (process.env.NODE_ENV !== 'production') {
     console.error(error);
   } else {
-    // newlic.log(error);
+    //TODO: newlic.log(error);
   }
 
   reply.status(500).send({ message: 'Internal server error.' });
