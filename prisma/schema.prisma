@@ -12,3 +12,35 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User { 
+  id             String   @id @default(uuid())
+  email          String   @unique
+  name           String
+  password_hash  String  
+  created_at     DateTime @default(now())
+
+  @@map("users") // This is the table name in the database
+}
+
+model CheckIn {
+  id           String   @id @default(uuid())
+  created_at   DateTime @default(now())
+  validated_at DateTime?
+
+  @@map("check_ins") // This is the table name in the database
+}
+
+model Gym {
+  id          String   @id @default(uuid())
+  name        String
+  description String? 
+  address     String
+  city        String
+  state       String
+  zip         String
+  latitude    Decimal
+  longitude   Decimal
+
+  @@map("gyms") // This is the table name in the database
+}
