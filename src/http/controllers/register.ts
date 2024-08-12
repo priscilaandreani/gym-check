@@ -17,7 +17,7 @@ export async function register(req: FastifyRequest, res: FastifyReply) {
     const usersRespository = new PrismaUsersRepository();
     const registerService = new RegisterService(usersRespository);
 
-    registerService.execute({
+    await registerService.execute({
       name,
       email,
       password
@@ -27,7 +27,7 @@ export async function register(req: FastifyRequest, res: FastifyReply) {
       return res.status(409).send({ message: err.message });
     }
 
-    return res.status(500).send(); // TODO: improve error handling
+    throw err;
   }
 
   return res.status(201).send();
