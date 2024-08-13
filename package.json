@@ -8,7 +8,9 @@
     "start": "node --env-file .env dist/server.js",
     "build": "tsup src",
     "test": "vitest",
-    "test:prod": "vitest run"
+    "test:prod": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "test:ui": "vitest --ui"
   },
   "keywords": [],
   "author": "Priscila Andreani",
@@ -23,6 +25,8 @@
   "devDependencies": {
     "@eslint/js": "9.9.0",
     "@types/node": "22.2.0",
+    "@vitest/coverage-v8": "2.0.5",
+    "@vitest/ui": "2.0.5",
     "eslint": "9.9.0",
     "eslint-config-prettier": "9.1.0",
     "globals": "15.9.0",
