@@ -2,7 +2,7 @@ import { describe, expect, it, beforeEach } from 'vitest';
 import { hash } from 'bcryptjs';
 import { InMemoryUsersRepository } from '@/repositories/in-memory/in-memory-users-repository';
 import { GetUserProfileService } from './get-user-profile';
-import { ResourceNotFound } from '../errors/resource-not-found';
+import { ResourceNotFoundError } from '../errors/resource-not-found-error';
 
 let usersRepository: InMemoryUsersRepository;
 let sut: GetUserProfileService;
@@ -33,6 +33,6 @@ describe('get user service', () => {
       sut.execute({
         userId: 'none'
       })
-    ).rejects.toBeInstanceOf(ResourceNotFound);
+    ).rejects.toBeInstanceOf(ResourceNotFoundError);
   });
 });
