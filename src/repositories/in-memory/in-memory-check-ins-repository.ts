@@ -6,6 +6,10 @@ import dayjs from 'dayjs';
 export class InMemoryCheckInsRepository implements CheckInsRepository {
   public checkIns: CheckIn[] = [];
 
+  async findById(id: string): Promise<CheckIn | null> {
+    return this.checkIns.find((checkIn) => checkIn.id === id) ?? null;
+  }
+
   async countByUserId(userId: string): Promise<number> {
     return this.checkIns.filter((checkIn) => checkIn.user_id === userId).length;
   }
@@ -14,15 +18,12 @@ export class InMemoryCheckInsRepository implements CheckInsRepository {
     userId: string,
     date: Date
   ): Promise<CheckIn | null> {
-    const checkInOnSameDate = this.checkIns.find((checkIn) => {
-      const isSameDate = dayjs(checkIn.created_at).isSame(date, 'day');
+    const checkInOnSameDate =
+      this.checkIns.find((checkIn) => {
+        const isSameDate = dayjs(checkIn.created_at).isSame(date, 'day');
 
-      return checkIn.user_id === userId && isSameDate;
-    });
-
-    if (!checkInOnSameDate) {
-      return null;
-    }
+        return checkIn.user_id === userId && isSameDate;
+      }) ?? null;
 
     return checkInOnSameDate;
   }
@@ -43,6 +44,16 @@ export class InMemoryCheckInsRepository implements CheckInsRepository {
     };
 
     this.checkIns.push(checkIn);
+
+    return checkIn;
+  }
+
+  async save(checkIn: CheckIn): Promise<CheckIn> {
+    const checkInIndex = this.checkIns.findIndex((c) => c.id === checkIn.id);
+
+    if (checkInIndex >= 0) {
+      this.checkIns[checkInIndex] = checkIn;
+    }
 
     return checkIn;
   }
