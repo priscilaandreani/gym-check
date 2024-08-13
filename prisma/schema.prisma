@@ -43,10 +43,6 @@ model Gym {
   id          String  @id @default(uuid())
   name        String
   description String?
-  address     String
-  city        String
-  state       String
-  zip         String
   latitude    Decimal
   longitude   Decimal
 
